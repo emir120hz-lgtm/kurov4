@@ -2,6 +2,7 @@ package kuro;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +41,7 @@ public final class Extras {
 
    public static void noFall() {
       ClientPlayerEntity p = mc.player;
-      if (p.fallDistance > 2.5F && !p.isOnGround() && !p.isFallFlying() && mc.getNetworkHandler() != null) {
+      if (p.fallDistance > 2.5F && !p.isOnGround() && p.getPose() != EntityPose.GLIDING && mc.getNetworkHandler() != null) {
          mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true, p.horizontalCollision));
       }
    }
